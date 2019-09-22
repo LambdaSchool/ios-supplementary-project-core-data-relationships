@@ -63,10 +63,10 @@ class TaskListsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowTasks" {
             
-//            guard let indexPath = tableView.indexPathForSelectedRow,
-//                let tasksTVC = segue.destination as? TasksTableViewController else { return }
-//            tasksTVC.taskController = taskController
-//            tasksTVC.taskList = fetchResultsController.object(at: indexPath)
+            guard let indexPath = tableView.indexPathForSelectedRow,
+                let tasksTVC = segue.destination as? TasksTableViewController else { return }
+            tasksTVC.taskController = taskController
+            tasksTVC.taskList = fetchResultsController.object(at: indexPath)
         }
     }
 }

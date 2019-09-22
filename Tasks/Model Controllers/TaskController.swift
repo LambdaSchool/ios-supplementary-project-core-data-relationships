@@ -13,12 +13,13 @@ class TaskController {
     @discardableResult func createTaskList(with name: String) -> TaskList {
         let taskList = TaskList(name: name)
         CoreDataStack.shared.saveToPersistentStore()
+
         return taskList
     }
     
-    @discardableResult func createTask(with name: String, notes: String?, priority: TaskPriority) -> Task {
+    @discardableResult func createTask(with name: String, notes: String?, priority: TaskPriority, in taskList: TaskList) -> Task {
         
-        let task = Task(name: name, notes: notes, priority: priority, context: CoreDataStack.shared.mainContext)
+        let task = Task(name: name, notes: notes, priority: priority, in: taskList, context: CoreDataStack.shared.mainContext)
         
         CoreDataStack.shared.saveToPersistentStore()
         

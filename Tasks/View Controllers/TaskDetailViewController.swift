@@ -16,6 +16,7 @@ class TaskDetailViewController: UIViewController {
     
     var taskController: TaskController?
     var task: Task?
+    var taskList: TaskList?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +28,7 @@ class TaskDetailViewController: UIViewController {
         
         guard let name = nameTextField.text,
             let notes = notesTextView.text,
+            let taskList = taskList,
             !name.isEmpty else { return }
         
         // Using some information from the segmented control, get a TaskPriority to pass to the functions below.
@@ -51,7 +53,7 @@ class TaskDetailViewController: UIViewController {
         if let task = task {
             taskController?.updateTask(task: task, with: name, notes: notes, priority: priority)
         } else {
-            taskController?.createTask(with: name, notes: notes, priority: priority)
+            taskController?.createTask(with: name, notes: notes, priority: priority, in: taskList)
         }
         
         navigationController?.popViewController(animated: true)

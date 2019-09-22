@@ -19,7 +19,7 @@ enum TaskPriority: String, CaseIterable {
 // Core Data already created the Task class, so we just want to add some extra functionality onto it.
 extension Task {
     
-    convenience init(name: String, notes: String?, priority: TaskPriority, context: NSManagedObjectContext) {
+    convenience init(name: String, notes: String?, priority: TaskPriority, in taskList: TaskList, context: NSManagedObjectContext) {
         
         // Setting up the generic NSManagedObject functionality of the model object
         // The generic chunk of clay
@@ -29,5 +29,8 @@ extension Task {
         self.name = name
         self.notes = notes
         self.priority = priority.rawValue
+        
+        // Because the relationship is inverse, this will also attach the task to the taskList.
+        self.taskList = taskList
     }
 }

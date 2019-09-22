@@ -12,13 +12,14 @@ import CoreData
 class TasksTableViewController: UITableViewController {
     
     var taskController: TaskController!
-//    var taskList: TaskList!
+    var taskList: TaskList!
     
     lazy var fetchResultsController: NSFetchedResultsController<Task> = {
         
         let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "priority", ascending: true)]
-//        fetchRequest.predicate = NSPredicate(format: "taskList == %@", taskList)
+        fetchRequest.predicate = NSPredicate(format: "taskList == %@", taskList)
+        
         // YOU MUST make the descriptor with the same key path as the sectionNameKeyPath be the first sort descriptor in this array
         
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
@@ -37,26 +38,9 @@ class TasksTableViewController: UITableViewController {
         return frc
     }()
     
-    // NOTE! This is not a good, efficient way to do this, as the fetch request
-    // will be executed every time the tasks property is accessed. We will
-    // learn a better way to do this later.
-    
-    //    var tasks: [Task] {
-    //        let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
-    //        count += 1
-    //        print(count)
-    //        do {
-    //            let tasks = try CoreDataStack.shared.mainContext.fetch(fetchRequest)
-    //            return tasks
-    //        } catch {
-    //            NSLog("Error fetching tasks: \(error)")
-    //            return []
-    //        }
-    //    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        title = taskList.name
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -115,12 +99,12 @@ class TasksTableViewController: UITableViewController {
             
             detailVC.task = task
             detailVC.taskController = taskController
-//            detailVC.taskList = taskList
+            detailVC.taskList = taskList
         } else if segue.identifier == "ShowCreateTask" {
             guard let detailVC = segue.destination as? TaskDetailViewController else { return }
             
             detailVC.taskController = taskController
-//            detailVC.taskList = taskList
+            detailVC.taskList = taskList
         }
     }
 }
